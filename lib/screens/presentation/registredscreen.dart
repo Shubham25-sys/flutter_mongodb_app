@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mongodb_app/resources/colors_const.dart';
 import 'package:flutter_mongodb_app/resources/string_const.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../resources/route_manager.dart';
-import '../resources/values_const.dart';
+import '../../resources/route_manager.dart';
+import '../../resources/values_const.dart';
 
 class RegisteredScreen extends StatefulWidget {
   const RegisteredScreen({super.key});
@@ -80,26 +80,35 @@ class _RegisteredScreenState extends State<RegisteredScreen> {
                         borderRadius: BorderRadius.circular(AppSize.s10),
                         color: ColorManager.light,
                         child: TextFormField(
-                          cursorColor: ColorManager.theame300,
+                          cursorColor: ColorManager.black,
                           controller: usernamecontroller,
                           keyboardType: TextInputType.text,
+                          style: TextStyle(color:ColorManager.black),
                           decoration:  InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.white,),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
+                                borderSide: BorderSide(
+                                  color: ColorManager.white,
+                                ),
+                                borderRadius:
+                                BorderRadius.circular(AppSize.s10),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.theame200),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
-                              ),
+                                  borderSide: BorderSide(
+                                      color: ColorManager.theame200),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
                               errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.red),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
-                              ),
+                                  borderSide:
+                                  BorderSide(color: ColorManager.red),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
                               focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.red),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
-                              ),
+                                  borderSide:
+                                  BorderSide(color: ColorManager.red),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
+                              labelStyle: TextStyle(color: ColorManager.black),
+                              hintStyle: TextStyle(color: ColorManager.black),
                               errorText: _isvalidate ? AppString.validerror :null,
                               border: InputBorder.none,
                               labelText: AppString.labeltextU,
@@ -118,26 +127,35 @@ class _RegisteredScreenState extends State<RegisteredScreen> {
                         borderRadius: BorderRadius.circular(AppSize.s10),
                         color: ColorManager.light,
                         child: TextFormField(
-                          cursorColor: ColorManager.theame300,
+                          style: TextStyle(color:ColorManager.black),
+                          cursorColor: ColorManager.black,
                           controller: emailcontroller,
                           keyboardType: TextInputType.emailAddress,
                           decoration:  InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: ColorManager.white,),
-                              borderRadius: BorderRadius.circular(AppSize.s10)
-                            ),
-                           enabledBorder: OutlineInputBorder(
-                             borderSide: BorderSide(color: ColorManager.theame200),
-                             borderRadius: BorderRadius.circular(AppSize.s10)
-                           ),
-                              errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.red),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorManager.white,
+                                ),
+                                borderRadius:
+                                BorderRadius.circular(AppSize.s10),
                               ),
-                           focusedErrorBorder: OutlineInputBorder(
-                               borderSide: BorderSide(color: ColorManager.red),
-                               borderRadius: BorderRadius.circular(AppSize.s10)
-                           ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager.theame200),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
+                              errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: ColorManager.red),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: ColorManager.red),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
+                              labelStyle: TextStyle(color: ColorManager.black),
+                              hintStyle: TextStyle(color: ColorManager.black),
                            errorText: _isvalidate ? AppString.validerror :null,
                            border: InputBorder.none,
                             labelText: AppString.labeltextE,
@@ -156,27 +174,36 @@ class _RegisteredScreenState extends State<RegisteredScreen> {
                         borderRadius: BorderRadius.circular(AppSize.s10),
                         color: ColorManager.light,
                         child: TextFormField(
-                          cursorColor: ColorManager.theame300,
+                          style: TextStyle(color:ColorManager.black),
+                          cursorColor: ColorManager.black,
                           controller: passwordcontroller,
                           obscureText: true,
                           keyboardType: TextInputType.visiblePassword,
                           decoration:  InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.white,),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
+                                borderSide: BorderSide(
+                                  color: ColorManager.white,
+                                ),
+                                borderRadius:
+                                BorderRadius.circular(AppSize.s10),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.theame200),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
-                              ),
+                                  borderSide: BorderSide(
+                                      color: ColorManager.theame200),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
                               errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: ColorManager.red),
-                                borderRadius: BorderRadius.circular(AppSize.s10)
-                              ),
+                                  borderSide:
+                                  BorderSide(color: ColorManager.red),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
                               focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.red),
-                                  borderRadius: BorderRadius.circular(AppSize.s10)
-                              ),
+                                  borderSide:
+                                  BorderSide(color: ColorManager.red),
+                                  borderRadius:
+                                  BorderRadius.circular(AppSize.s10)),
+                              labelStyle: TextStyle(color: ColorManager.black),
+                              hintStyle: TextStyle(color: ColorManager.black),
                               errorText: _isvalidate ? AppString.validerror : null,
                               border: InputBorder.none,
                               labelText: AppString.labeltextP,

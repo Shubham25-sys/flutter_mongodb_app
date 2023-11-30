@@ -4,8 +4,8 @@ import 'package:flutter_mongodb_app/resources/colors_const.dart';
 import 'package:flutter_mongodb_app/resources/string_const.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../resources/route_manager.dart';
-import '../resources/values_const.dart';
+import '../../resources/route_manager.dart';
+import '../../resources/values_const.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -108,7 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(AppSize.s10),
                             color: ColorManager.light,
                             child: TextFormField(
-                              cursorColor: ColorManager.theame300,
+                              style: TextStyle(color:ColorManager.black),
+                              cursorColor: ColorManager.black,
                               controller: _emailcontroller,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
@@ -117,23 +118,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: ColorManager.white,
                                     ),
                                     borderRadius:
-                                        BorderRadius.circular(AppSize.s10),
+                                    BorderRadius.circular(AppSize.s10),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: ColorManager.theame200),
                                       borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                      BorderRadius.circular(AppSize.s10)),
                                   errorBorder: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: ColorManager.red),
+                                      BorderSide(color: ColorManager.red),
                                       borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                      BorderRadius.circular(AppSize.s10)),
                                   focusedErrorBorder: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: ColorManager.red),
+                                      BorderSide(color: ColorManager.red),
                                       borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                      BorderRadius.circular(AppSize.s10)),
+                                  labelStyle: TextStyle(color: ColorManager.black),
+                                  hintStyle: TextStyle(color: ColorManager.black),
                                   errorText:
                                       _isvalidate ? AppString.validerror : null,
                                   border: InputBorder.none,
@@ -154,32 +157,36 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(AppSize.s10),
                             color: ColorManager.light,
                             child: TextFormField(
-                              cursorColor: ColorManager.theame300,
+                              style: TextStyle(color:ColorManager.black),
+                              cursorColor: ColorManager.black,
                               obscureText: true,
                               controller: _passwordcontroller,
                               keyboardType: TextInputType.visiblePassword,
                               decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: ColorManager.white,
-                                      ),
-                                      borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.white,
+                                    ),
+                                    borderRadius:
+                                    BorderRadius.circular(AppSize.s10),
+                                  ),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: ColorManager.theame200),
                                       borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                      BorderRadius.circular(AppSize.s10)),
                                   errorBorder: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: ColorManager.red),
+                                      BorderSide(color: ColorManager.red),
                                       borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                      BorderRadius.circular(AppSize.s10)),
                                   focusedErrorBorder: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: ColorManager.red),
+                                      BorderSide(color: ColorManager.red),
                                       borderRadius:
-                                          BorderRadius.circular(AppSize.s10)),
+                                      BorderRadius.circular(AppSize.s10)),
+                                  labelStyle: TextStyle(color: ColorManager.black),
+                                  hintStyle: TextStyle(color: ColorManager.black),
                                   errorText:
                                       _isvalidate ? AppString.validerror : null,
                                   border: InputBorder.none,

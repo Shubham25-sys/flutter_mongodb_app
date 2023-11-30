@@ -25,6 +25,17 @@ class AppString{
   static const String createac = "Create an account";
   static const String or = "- OR -";
   static const String googlesignin = "Sign in with Google";
+  static const String search = "Search items";
 
+  /// Navigation Drawer
+  static const String home = "Home";
+  static const String profile = "Profile";
+  static const String logout = "Logout";
 
+  /// Home Screen
+  static const String items = "Items";
+  static const String restoname = 'Resturent Name';
+
+  /// Restourant screen
+  static const String ratting = "Ratting";
 }
