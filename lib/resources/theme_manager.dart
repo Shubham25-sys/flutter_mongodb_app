@@ -21,8 +21,8 @@ ThemeData getApplicationTheme(){
        ),
        bodyText1:  TextStyle(
          fontSize: FontSize.s18,
-         fontWeight: FontWeightManager.medium,
-         color: ColorManager.theame300,
+         fontWeight: FontWeightManager.regular,
+         color: ColorManager.black,
        ),
        headline3:  TextStyle(
          // fontSize: FontSize.s14,

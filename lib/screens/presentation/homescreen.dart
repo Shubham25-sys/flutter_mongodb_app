@@ -14,7 +14,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../resources/string_const.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String email;
+  final String username;
+   HomeScreen({super.key, required this.email, required this.username});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -77,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: AppSize.s20,
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
-
                   style: TextStyle(color: ColorManager.black),
                   cursorColor: ColorManager.black,
                   textInputAction: TextInputAction.newline,
@@ -104,14 +105,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: ColorManager.theame100,
       ),
-      drawer: const Navigationdrawer(),
+      drawer:  Navigationdrawer(email: widget.email, username: widget.username,),
       body: RefreshIndicator(
         edgeOffset: 0,
         onRefresh: _refresh,
         child: SingleChildScrollView(
           controller: controller,
           child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width / 1,
@@ -131,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Center(
                       child: SmoothPageIndicator(
                         controller: _controller,
-                        count: 4,
+                        count: 2,
                         effect: ExpandingDotsEffect(
                             dotColor: ColorManager.faintgray,
                             activeDotColor: ColorManager.theame100,
@@ -160,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                         child: ListView.builder(
-                          //controller: controller,
+                            //controller: controller,
                             //physics: NeverScrollableScrollPhysics(),
                             itemCount: 7,
                             itemBuilder: (context, index) {
@@ -171,10 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   motion: const ScrollMotion(),
                                   children: [
                                     SlidableAction(
-                                      onPressed: (context) => {
-                                      },
-
-                                      icon: check == null ? Icons.favorite_border_outlined : Icons.favorite,
+                                      onPressed: (context) => {},
+                                      icon: check == null
+                                          ? Icons.favorite_border_outlined
+                                          : Icons.favorite,
                                       borderRadius: BorderRadius.circular(60),
                                     ),
                                     SlidableAction(
@@ -192,12 +194,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: GestureDetector(
-                                    onTap: (){
-                                      Navigator.pushNamed(context, Routes.restoscreen);
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.restoscreen);
                                     },
                                     child: SizedBox(
                                       height:
-                                          MediaQuery.of(context).size.height / 6,
+                                          MediaQuery.of(context).size.height /
+                                              6,
                                       width: MediaQuery.of(context).size.width,
                                       child: Material(
                                         elevation: 4,
@@ -210,7 +214,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 ClipRRect(
                                                     borderRadius:
-                                                        BorderRadius.circular(10),
+                                                        BorderRadius.circular(
+                                                            10),
                                                     child: const Image(
                                                       image: AssetImage(
                                                           ImageAssets.dish1),
@@ -221,28 +226,63 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       const EdgeInsets.all(5.0),
                                                   child: SingleChildScrollView(
                                                     child: ScrollConfiguration(
-                                                      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                                      behavior:
+                                                          ScrollConfiguration
+                                                                  .of(context)
+                                                              .copyWith(
+                                                                  scrollbars:
+                                                                      false),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment.start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Text(
                                                             AppString.restoname,
-                                                            style: UpdateUser
-                                                                .customTextStyle(
-                                                                    MediaQuery.of(
-                                                                                context)
-                                                                            .size
-                                                                            .width /
-                                                                        15,
-                                                                    FontWeightManager
-                                                                        .semiBold,
-                                                                    ColorManager.black),
+                                                            style: UpdateUser.customTextStyle(
+                                                                MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    15,
+                                                                FontWeightManager
+                                                                    .semiBold,
+                                                                ColorManager
+                                                                    .black),
                                                           ),
                                                           Text(
                                                             'Starters, Main Menu, Desserts.',
-                                                            style: UpdateUser
-                                                                .customTextStyle(
+                                                            style: UpdateUser.customTextStyle(
+                                                                MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    30,
+                                                                FontWeightManager
+                                                                    .regular,
+                                                                ColorManager
+                                                                    .gray),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: AppSize.s10,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    ColorManager
+                                                                        .yellow,
+                                                                size:
+                                                                    AppSize.s20,
+                                                              ),
+                                                              const SizedBox(
+                                                                width:
+                                                                    AppSize.s5,
+                                                              ),
+                                                              Text(
+                                                                '4.2',
+                                                                style: UpdateUser.customTextStyle(
                                                                     MediaQuery.of(
                                                                                 context)
                                                                             .size
@@ -250,40 +290,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         30,
                                                                     FontWeightManager
                                                                         .regular,
-                                                                    ColorManager.gray),
-                                                          ),
-                                                          const SizedBox(height: AppSize.s10,),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    ColorManager.yellow,
-                                                                size: AppSize.s20,
-                                                              ),
-                                                              const SizedBox(width: AppSize.s5,),
-                                                              Text(
-                                                                '4.2',
-                                                                style: UpdateUser
-                                                                    .customTextStyle(
-                                                                        MediaQuery.of(
-                                                                                    context)
-                                                                                .size
-                                                                                .width /
-                                                                            30,
-                                                                        FontWeightManager
-                                                                            .regular,
-                                                                        ColorManager
-                                                                            .gray),
+                                                                    ColorManager
+                                                                        .gray),
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(height: AppSize.s5,),
+                                                          const SizedBox(
+                                                            height: AppSize.s5,
+                                                          ),
                                                           Row(
                                                             children: [
-                                                              Icon(Icons.circle,color: ColorManager.green,size: AppSize.s15,),
-                                                              const SizedBox(width: AppSize.s5,),
-                                                              const Text('Pure Veg')
+                                                              Icon(
+                                                                Icons.circle,
+                                                                color:
+                                                                    ColorManager
+                                                                        .green,
+                                                                size:
+                                                                    AppSize.s15,
+                                                              ),
+                                                              const SizedBox(
+                                                                width:
+                                                                    AppSize.s5,
+                                                              ),
+                                                              const Text(
+                                                                  'Pure Veg')
                                                             ],
                                                           )
                                                         ],
@@ -308,50 +338,65 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: bottomnavigationbar,
+      //bottomNavigationBar: bottomnavigationbar,
     );
   }
 
-  Widget get bottomnavigationbar {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (BuildContext context, Widget? child) {
-        return AnimatedContainer(
-          height: controller.position.userScrollDirection == ScrollDirection.reverse ? AppSize.s0 : AppSize.s60,
-          duration: const Duration(milliseconds: 300),
-          child: child,
-        );
-      },
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(0), topRight: Radius.circular(0)),
-        child: ScrollToHideWidget(
-          controller: controller,
-          child: BottomNavigationBar(
-            backgroundColor: ColorManager.theame100,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home_outlined,
-                    color: ColorManager.black,
-                    size: AppSize.s30,
-                  ),
-                  label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.notifications_none_outlined,
-                    color: ColorManager.black,
-                    size: AppSize.s30,
-                  ),
-                  label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.perm_identity_outlined,
-                      color: ColorManager.black, size: AppSize.s30),
-                  label: ''),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget get bottomnavigationbar {
+  //   return AnimatedBuilder(
+  //     animation: controller,
+  //     builder: (BuildContext context, Widget? child) {
+  //       return AnimatedContainer(
+  //         height:
+  //             controller.position.userScrollDirection == ScrollDirection.reverse
+  //                 ? AppSize.s0
+  //                 : AppSize.s60,
+  //         duration: const Duration(milliseconds: 300),
+  //         child: child,
+  //       );
+  //     },
+  //     child: ClipRRect(
+  //       borderRadius: const BorderRadius.only(
+  //           topLeft: Radius.circular(0), topRight: Radius.circular(0)),
+  //       child: ScrollToHideWidget(
+  //         controller: controller,
+  //         child: BottomNavigationBar(
+  //           backgroundColor: ColorManager.theame100,
+  //           items: [
+  //             BottomNavigationBarItem(
+  //                 icon: IconButton(
+  //                    onPressed: () {
+  //                    }, icon: Icon(Icons.home_outlined,color: ColorManager.black,size: AppSize.s30,),
+  //                 ),
+  //                 label: ''),
+  //             BottomNavigationBarItem(
+  //                 icon: IconButton(
+  //                   onPressed: () {
+  //                     Navigator.pushNamed(context, Routes.orderscreen);
+  //                   },
+  //                   icon: Icon(
+  //                     Icons.notifications_none_outlined,
+  //                     color: ColorManager.black,
+  //                     size: AppSize.s30,
+  //                   ),
+  //                 ),
+  //                 label: ''),
+  //             BottomNavigationBarItem(
+  //                 icon: IconButton(
+  //                   onPressed: () {
+  //                     Navigator.pushNamed(context, Routes.profilescreen);
+  //                   },
+  //                   icon: Icon(
+  //                     Icons.perm_identity_outlined,
+  //                     size: AppSize.s30,
+  //                     color: ColorManager.black,
+  //                   ),
+  //                 ),
+  //                 label: ''),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

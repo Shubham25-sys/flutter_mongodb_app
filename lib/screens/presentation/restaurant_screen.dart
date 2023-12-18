@@ -22,7 +22,6 @@ class _RestoScreenState extends State<RestoScreen> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-
                 actions: [
                   Padding(
                     padding: const EdgeInsets.all(AppPadding.p10),
@@ -33,7 +32,6 @@ class _RestoScreenState extends State<RestoScreen> {
                         height: AppSize.s20,
                         width: MediaQuery.of(context).size.width / 1.2,
                         child: TextField(
-
                           style: TextStyle(color: ColorManager.black),
                           cursorColor: ColorManager.black,
                           textInputAction: TextInputAction.newline,
@@ -64,7 +62,7 @@ class _RestoScreenState extends State<RestoScreen> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 leading: IconButton(
                     onPressed: () {
-                      Navigator.popAndPushNamed(context, Routes.homescreen);
+                      Navigator.popAndPushNamed(context, Routes.onbordingscreen);
                     },
                     icon: const Icon(
                       Icons.arrow_back_ios_new_rounded,
@@ -73,7 +71,7 @@ class _RestoScreenState extends State<RestoScreen> {
                 expandedHeight: AppSize.s350,
                 pinned: true,
                 flexibleSpace: Padding(
-                  padding: const EdgeInsets.only(top: 50, left: 5, right: 5),
+                  padding: const EdgeInsets.only(top: AppPadding.p50, left: AppPadding.p5, right: AppPadding.p5),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: FlexibleSpaceBar(
@@ -86,9 +84,12 @@ class _RestoScreenState extends State<RestoScreen> {
                         style: UpdateUser.customTextStyle(FontSize.s20,
                             FontWeightManager.bold, ColorManager.white),
                       ),
-                      background: const Image(
-                        image: AssetImage(ImageAssets.resto),
-                        fit: BoxFit.cover,
+                      background:  const Padding(
+                        padding:  EdgeInsets.only(top: AppPadding.p40),
+                        child: Image(
+                          image: AssetImage(ImageAssets.resto),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -300,7 +301,7 @@ class _RestoScreenState extends State<RestoScreen> {
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height / 5,
+                    height: MediaQuery.of(context).size.height / 4,
                     color: Theme.of(context).scaffoldBackgroundColor,
                     child: Column(
                       children: [

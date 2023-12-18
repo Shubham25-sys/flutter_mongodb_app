@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "450913635291",
+    "project_id": "flutter-mongo-db",
+    "storage_bucket": "flutter-mongo-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450913635291:android:51a4bf75349d6fe95875fe",
+        "android_client_info": {
+          "package_name": "com.example.flutter_mongodb_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8wWSuJ9Ilnvk6t6qMhgbNWFxGmdlz6j4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

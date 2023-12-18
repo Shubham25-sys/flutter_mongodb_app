@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../resources/assets_manager.dart';
 import '../../resources/colors_const.dart';
 
 class Page1 extends StatelessWidget {
@@ -11,10 +12,16 @@ class Page1 extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            color: ColorManager.faintgray,
+        child: GestureDetector(
+          onTap: (){
+
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              //color: ColorManager.faintgray,
+              child: const Image(image: AssetImage(ImageAssets.discount1),fit: BoxFit.cover,),
+            ),
           ),
         ),
       ),
