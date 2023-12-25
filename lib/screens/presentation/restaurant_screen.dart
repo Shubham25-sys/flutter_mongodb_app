@@ -2,19 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mongodb_app/resources/assets_manager.dart';
 import 'package:flutter_mongodb_app/resources/route_manager.dart';
 import 'package:flutter_mongodb_app/resources/theme_manager.dart';
+import 'package:flutter_mongodb_app/screens/presentation/list.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../resources/colors_const.dart';
 import '../../resources/string_const.dart';
 import '../../resources/values_const.dart';
 
 class RestoScreen extends StatefulWidget {
-  const RestoScreen({super.key});
+  final String restoname;
+  final String type;
+  final String image;
+  RestoScreen(
+      {super.key,
+      required this.restoname,
+      required this.type,
+      required this.image});
 
   @override
   State<RestoScreen> createState() => _RestoScreenState();
 }
 
 class _RestoScreenState extends State<RestoScreen> {
+  bool _customeicon = false;
+
+  // List Items = ['Starters', 'Main Menu', 'Deserts', 'Soupe', 'Rice'];
+  // List Items1 = ['Panner', 'Tikka'];
+
+  int current = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +61,7 @@ class _RestoScreenState extends State<RestoScreen> {
                               ),
                               border: InputBorder.none,
                               contentPadding:
-                              const EdgeInsets.only(bottom: 10, right: 5),
+                                  const EdgeInsets.only(bottom: 10, right: 5),
                               hintText: AppString.search,
                               hintStyle: TextStyle(color: ColorManager.gray)),
                           //readOnly: true,
@@ -62,7 +77,7 @@ class _RestoScreenState extends State<RestoScreen> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 leading: IconButton(
                     onPressed: () {
-                      Navigator.popAndPushNamed(context, Routes.onbordingscreen);
+                      Navigator.pop(context);
                     },
                     icon: const Icon(
                       Icons.arrow_back_ios_new_rounded,
@@ -71,7 +86,10 @@ class _RestoScreenState extends State<RestoScreen> {
                 expandedHeight: AppSize.s350,
                 pinned: true,
                 flexibleSpace: Padding(
-                  padding: const EdgeInsets.only(top: AppPadding.p50, left: AppPadding.p5, right: AppPadding.p5),
+                  padding: const EdgeInsets.only(
+                      top: AppPadding.p50,
+                      left: AppPadding.p5,
+                      right: AppPadding.p5),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: FlexibleSpaceBar(
@@ -79,18 +97,17 @@ class _RestoScreenState extends State<RestoScreen> {
                       centerTitle: false,
                       expandedTitleScale: 1.2,
                       title: Text(
-                        'Restaurant name',
+                        widget.restoname,
                         textAlign: TextAlign.start,
                         style: UpdateUser.customTextStyle(FontSize.s20,
                             FontWeightManager.bold, ColorManager.white),
                       ),
-                      background:  const Padding(
-                        padding:  EdgeInsets.only(top: AppPadding.p40),
-                        child: Image(
-                          image: AssetImage(ImageAssets.resto),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      background: Padding(
+                          padding: EdgeInsets.only(top: AppPadding.p40),
+                          child: Image.network(
+                            widget.image.toString(),
+                            fit: BoxFit.fill,
+                          )),
                     ),
                   ),
                 ),
@@ -104,50 +121,37 @@ class _RestoScreenState extends State<RestoScreen> {
                 expandedHeight: AppSize.s0,
                 flexibleSpace: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: ClipRRect(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
                         children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height / 30,
-                              width: MediaQuery.of(context).size.width / 5,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.theame100,
-                                  borderRadius: BorderRadius.circular(30),
-                                  border: Border.all(
-                                      color: ColorManager.theame300,
-                                      width: AppSize.s2)),
-                              child: Center(
-                                  child: Text(
-                                'Top rated',
-                                style: UpdateUser.customTextStyle(
-                                    FontSize.s12,
-                                    FontWeightManager.medium,
-                                    ColorManager.graynish),
-                              ))),
-                          const SizedBox(
-                            width: AppSize.s10,
-                          ),
-                          Icon(
-                            Icons.circle_sharp,
-                            color: ColorManager.green,
-                            size: AppSize.s20,
-                          ),
+                          widget.type == 'Pure Veg'
+                              ? Icon(
+                                  Icons.circle_sharp,
+                                  color: ColorManager.green,
+                                  size: AppSize.s20,
+                                )
+                              : Icon(
+                                  Icons.circle_sharp,
+                                  color: ColorManager.red,
+                                  size: AppSize.s20,
+                                ),
                           const SizedBox(
                             width: AppSize.s5,
                           ),
                           Text(
-                            'Pure Veg',
+                            widget.type,
                             style: UpdateUser.customTextStyle(
                                 FontSize.s10,
                                 FontWeightManager.medium,
                                 ColorManager.graynish),
                           ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width / 2.8),
+                        ],
+                      ),
+                      Row(
+                        children: [
                           Text(
                             AppString.ratting,
                             style: UpdateUser.customTextStyle(
@@ -172,211 +176,95 @@ class _RestoScreenState extends State<RestoScreen> {
                                           FontWeightManager.bold,
                                           ColorManager.black)))),
                         ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              /// Sliver APPbar 3
-              SliverAppBar(
-                elevation: AppSize.s0,
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                expandedHeight: AppSize.s170,
-                collapsedHeight: AppSize.s150,
-                stretch: true,
-                pinned: true,
-                flexibleSpace: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      /// MainCourse field
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          /// Starters
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 7,
-                                width: MediaQuery.of(context).size.height / 7,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: const Image(
-                                    image: AssetImage(
-                                      ImageAssets.starters,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: AppSize.s5,
-                              ),
-                              Text(
-                                'Starters',
-                                style: UpdateUser.customTextStyle(
-                                    FontSize.s18,
-                                    FontWeightManager.medium,
-                                    ColorManager.graynish),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 20,
-                          ),
-
-                          /// MainMenu
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 7,
-                                width: MediaQuery.of(context).size.height / 7,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: const Image(
-                                    image: AssetImage(
-                                      ImageAssets.resto,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: AppSize.s5,
-                              ),
-                              Text(
-                                'Main Menu',
-                                style: UpdateUser.customTextStyle(
-                                    FontSize.s18,
-                                    FontWeightManager.medium,
-                                    ColorManager.graynish),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 20,
-                          ),
-
-                          /// Desserts
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 7,
-                                width: MediaQuery.of(context).size.height / 7,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: const Image(
-                                    image: AssetImage(
-                                      ImageAssets.desserts,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: AppSize.s5,
-                              ),
-                              Text(
-                                'Desserts',
-                                style: UpdateUser.customTextStyle(
-                                    FontSize.s18,
-                                    FontWeightManager.medium,
-                                    ColorManager.graynish),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                      )
                     ],
                   ),
                 ),
               ),
+
+
             ];
           },
-          body: ListView.builder(
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 4,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    child: Column(
-                      children: [
-                        /// Row 1st
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Panner Tanduri',
-                                  style: UpdateUser.customTextStyle(
-                                      FontSize.s14,
-                                      FontWeightManager.bold,
-                                      ColorManager.black),
-                                ),
-                                Text(
-                                  "56",
-                                  style: UpdateUser.customTextStyle(
-                                      FontSize.s14,
-                                      FontWeightManager.medium,
-                                      ColorManager.graynish),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: AppSize.s100,
-                                  width: AppSize.s120,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: const Image(
-                                      image: AssetImage(
-                                        ImageAssets.starters,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
+          body:ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(color: ColorManager.cardcolor,borderRadius: BorderRadius.circular(20)),
+                    child: ExpansionTile(title: Text('Starters',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/20, FontWeightManager.bold, ColorManager.black),),
+                      trailing: Icon(_customeicon ?Icons.arrow_drop_up_outlined:Icons.arrow_drop_down_outlined),
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height/2,
+                        width: double.infinity,
+                        child: ListView.builder(
+                          //scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: Resources.maplist.length,
+                            itemBuilder: (context, index){
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(Resources.maplist[index]['foodname'].toString()),
+                                      Text(Resources.maplist[index]['cost'].toString())
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: AppSize.s2,
-                                ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, Routes.paymentscreen);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        shape: const StadiumBorder(),
-                                        backgroundColor: ColorManager.white),
-                                    child: Text(
-                                      'ADD',
-                                      style:
-                                          TextStyle(color: ColorManager.yellow),
-                                    ))
-                              ],
-                            )
-                          ],
-                        ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: MediaQuery.of(context).size.height / 10,
+                                        width: MediaQuery.of(context).size.width / 9,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image(image: AssetImage(Resources.maplist[index]['imageurl']),fit: BoxFit.cover,),
+                                        ),
+                                      ),
 
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Divider(
-                            height: 0,
-                            thickness: 0,
-                            color: ColorManager.lightgray,
-                          ),
-                        )
-                      ],
-                    ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            );
+
+                        }),
+                      )
+                    ],
+                    onExpansionChanged: (bool expanded){
+                      setState(()=> _customeicon = expanded);
+                    },),
                   ),
-                );
-              })),
+                  SizedBox(height: 30,),
+                  ExpansionTile(title: Text('Starters'),
+                    trailing: Icon(_customeicon ?Icons.arrow_drop_up_outlined:Icons.arrow_drop_down_outlined),
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        width: 500,
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: Resources.maplist.length,
+                            itemBuilder: (context, index){
+                              return Container(child: Text(Resources.maplist[index]['foodname'].toString()));
+
+                            }),
+                      )
+                    ],
+                    onExpansionChanged: (bool expanded){
+                      setState(()=> _customeicon = expanded);
+                    },)
+                ],
+            ),
+              ),]
+          )
+      ),
     );
   }
 }

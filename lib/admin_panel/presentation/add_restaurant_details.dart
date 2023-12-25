@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mongodb_app/admin_panel/popups/done_popup.dart';
+import 'package:flutter_mongodb_app/db_references/realtime_reference.dart';
 import 'package:flutter_mongodb_app/providers/provider_class.dart';
 import 'package:flutter_mongodb_app/resources/assets_manager.dart';
 import 'package:flutter_mongodb_app/resources/colors_const.dart';
@@ -34,7 +35,7 @@ class _AdminRestaurantDetailsState extends State<AdminRestaurantDetails> {
       showDialog(context: context, builder: (BuildContext context)=>const DonePopup());
     });
   }
-  Future selectFile() async{
+  void selectFile() async{
     final result = await FilePicker.platform.pickFiles();
     if(result == null) return;
     setState(() {
@@ -46,22 +47,27 @@ class _AdminRestaurantDetailsState extends State<AdminRestaurantDetails> {
     final file = File(pickedFile!.path!);
 
     final ref = FirebaseStorage.instance.ref().child(path);
-    setState(() {
-      uploadTask= ref.putFile(file);
-    });
-
-     uploadTask?.whenComplete(() async {
-      imageurl = await ref.getDownloadURL();
-      print('Download Link : $imageurl');
-    });
+      UploadTask uploadTask= ref.putFile(file);
 
 
-    setState(() {
-      uploadTask = null;
-    });
+     uploadTask.whenComplete(() async {
+       try{
+         final downloadurl =  await ref.getDownloadURL();
+         setState(() {
+           imageurl = downloadurl;
+         });
+
+       }catch(e){
+         print(e);
+       }
+       print('Download Link : $imageurl');
+     });
   }
+  @override
+
   String? imageurl;
-  UploadTask? uploadTask;
+  bool isButtonActiveUpload = true;
+  bool isButtonActiveSubmit = false;
   PlatformFile? pickedFile;
   String _selectedValue = "";
   final _formKey = GlobalKey<FormState>();
@@ -112,7 +118,13 @@ class _AdminRestaurantDetailsState extends State<AdminRestaurantDetails> {
                                 child: pickedFile != null ? Image.file(File(pickedFile!.path!),fit: BoxFit.cover,) : Icon(Icons.add_a_photo_outlined))
                           ),
                         ),
-                        Center(child: buildProgress()),
+                        Center(child: ElevatedButton(onPressed: isButtonActiveUpload ? () {
+                          uploadFile();
+                          setState(() {
+                            isButtonActiveSubmit = true;
+                          });
+                        } : null,child: Text('UploadFile'),),)
+                        // Center(child: buildProgress()),
                       ],
                     ),
                   ),
@@ -196,24 +208,43 @@ class _AdminRestaurantDetailsState extends State<AdminRestaurantDetails> {
                       child:SizedBox(
                         height: MediaQuery.of(context).size.height/15,
                         width: MediaQuery.of(context).size.width/1 ,
-                        child: ElevatedButton(onPressed: () async{
+                        child: ElevatedButton(onPressed: isButtonActiveSubmit && imageurl != null  ? () async{
                           if (_formKey.currentState!.validate()) {
-                            setState(()=>_isLoading = true);
-                            await Future.delayed(const Duration(seconds: 5));
-                            setState(()=>_isLoading = false);
+                            //await uploadFile();
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            await Future.delayed(const Duration(seconds: 1));
+
                             try{
-                              await provider.AddRestaurantData(_restoname.text, _restoaddress.text, _restoownername.text, _selectedValue.toString(), _foodlicense.text,imageurl.toString());
-                              await uploadFile();
+
+                              await RealTime.AddRestaurantData(_restoname.text, _restoaddress.text, _restoownername.text, _selectedValue.toString(), _foodlicense.text,imageurl.toString());
                               popup();
                             }catch(e){
                               print(e);
                             }
 
                           }
+                          setState(()=>imageurl = null);
+                          setState(()=>_isLoading = false);
+                          setState(()=>isButtonActiveSubmit = false);
                           _restoownername.clear();
                           _restoaddress.clear();
                           _foodlicense.clear();
                           _restoname.clear();
+                        } : (){
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return  AlertDialog(
+                                  title:
+                                  const Center(child: Text(AppString.error)),
+                                  content: Text(
+                                    'Fetching Issue please Try Again!',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                );
+                              });
                         },
                           style: ElevatedButton.styleFrom(shape: StadiumBorder(),backgroundColor: ColorManager.orangelight),
                           child: _isLoading ? CircularProgressIndicator(color: ColorManager.loadingcolor) :Text(AppString.submit,style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/15, FontWeightManager.medium, ColorManager.black),),),
@@ -228,30 +259,30 @@ class _AdminRestaurantDetailsState extends State<AdminRestaurantDetails> {
       )),
     );
   }
-  Widget buildProgress()=>StreamBuilder<TaskSnapshot>(
-      stream: uploadTask?.snapshotEvents,
-      builder: (context,snapshot){
-        if(snapshot.hasData){
-          final data = snapshot.data!;
-          double progress = data.bytesTransferred / data.totalBytes;
-
-          return SizedBox(
-            height: MediaQuery.of(context).size.height / 50,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                LinearProgressIndicator(
-                  value: progress,
-                  backgroundColor: ColorManager.faintgray,
-                  color: ColorManager.green,
-                ),
-                Center(
-                  child:Text('${(100 * progress).roundToDouble()}%',style: TextStyle(color: ColorManager.white),),
-                )
-              ],
-            ),
-          );
-        }
-        return SizedBox();
-      });
+  // Widget buildProgress()=>StreamBuilder<TaskSnapshot>(
+  //     stream: uploadTask?.snapshotEvents,
+  //     builder: (context,snapshot){
+  //       if(snapshot.hasData){
+  //         final data = snapshot.data!;
+  //         double progress = data.bytesTransferred / data.totalBytes;
+  //
+  //         return SizedBox(
+  //           height: MediaQuery.of(context).size.height / 50,
+  //           child: Stack(
+  //             fit: StackFit.expand,
+  //             children: [
+  //               LinearProgressIndicator(
+  //                 value: progress,
+  //                 backgroundColor: ColorManager.faintgray,
+  //                 color: ColorManager.green,
+  //               ),
+  //               Center(
+  //                 child:Text('${(100 * progress).roundToDouble()}%',style: TextStyle(color: ColorManager.white),),
+  //               )
+  //             ],
+  //           ),
+  //         );
+  //       }
+  //       return SizedBox();
+  //     });
 }

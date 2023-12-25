@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mongodb_app/resources/colors_const.dart';
+import 'package:flutter_mongodb_app/screens/presentation/on_bording_screen.dart';
+import 'package:flutter_mongodb_app/screens/presentation/profile_screen.dart';
 
 import '../route_manager.dart';
 import '../string_const.dart';
@@ -19,7 +21,7 @@ class Navigationdrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               buildHeader(context,email.toString(),username.toString()),
-              buildMenuItems(context),
+              buildMenuItems(context,email,username),
             ],
           ),
         ),
@@ -50,7 +52,7 @@ class Navigationdrawer extends StatelessWidget {
           ),
         ),
       );
-  Widget buildMenuItems(BuildContext context) => Column(
+  Widget buildMenuItems(BuildContext context,String email,String username) => Column(
         children: [
           ListTile(
             leading: const Icon(Icons.home_outlined),
@@ -68,7 +70,7 @@ class Navigationdrawer extends StatelessWidget {
             leading: const Icon(Icons.perm_identity_outlined),
             title: Text(AppString.profile,style: Theme.of(context).textTheme.subtitle1,),
             onTap: () {
-              Navigator.pushNamed(context, Routes.onbordingscreen);
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(email:email ,username: username,)));
             },
           ),
           Divider(

@@ -5,6 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 final databaseRef = FirebaseDatabase.instance.ref();
 class RealTime{
+
+  /// Fetched username by email
+
   static fetchUsernameByEmail(String userEmail) async {
     String? username;
     final FirebaseDatabase database = FirebaseDatabase.instance;
@@ -27,6 +30,9 @@ class RealTime{
     return username;
   }
 
+
+  /// Insert user data
+
   static InsertData(String username , String email,){
     databaseRef.child('Users').child('ListRegister').push().set({
       'username': username,
@@ -34,14 +40,22 @@ class RealTime{
     });
   }
 
+
+  /// Registration Data
+
   static RegistrationData(String email, String password) async{
     await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
   }
+
+
+  /// Login Data
 
   static LoginData(String email, String password) async{
 
     await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
   }
+
+  /// SignIn with google
 
   static signInWithgoogle() async{
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -57,5 +71,19 @@ class RealTime{
         userCredential.user!.email!.toString(),
         userCredential.user!.displayName!.toString());
     print(userCredential.user?.displayName);
+  }
+
+  /// Restaurant data
+
+  static AddRestaurantData(String restarantname, String restarantaddress,
+      String rastaurantownername, String type, String foodlicenseno,String imagerurl) async {
+    await databaseRef.child('RestoDetails').child('ListRegister').push().set({
+      'restaurant_name': restarantname,
+      'foodlicense_no': foodlicenseno,
+      'restaurant_address': restarantaddress,
+      'restaurant_owner_name': rastaurantownername,
+      'restaurantimage': imagerurl,
+      'type': type,
+    });
   }
 }

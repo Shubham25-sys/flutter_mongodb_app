@@ -16,7 +16,7 @@ class Routes{
   static const String registredscreen = "/";
   static const String homescreen = "HomeScreen";
   static const String loginscreen = "LoginScreen";
-  static const String restoscreen = "RestoScreen";
+  //static const String restoscreen = "RestoScreen";
   static const String paymentscreen = "PaymentScreen";
   static const String profilescreen = "ProfileScreen";
   static const String orderscreen = "OrderScreen";
@@ -37,8 +37,8 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) =>  const HomeScreen());
       case Routes.loginscreen:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      case Routes.restoscreen:
-        return MaterialPageRoute(builder: (_) => const RestoScreen());
+      // case Routes.restoscreen:
+      //   return MaterialPageRoute(builder: (_) =>  RestoScreen());
       case Routes.paymentscreen:
         return MaterialPageRoute(builder: (_) => const PaymentScreen());
       // case Routes.profilescreen:

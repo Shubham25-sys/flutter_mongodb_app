@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mongodb_app/resources/assets_manager.dart';
@@ -9,6 +13,7 @@ import 'package:flutter_mongodb_app/resources/theme_manager.dart';
 import 'package:flutter_mongodb_app/resources/values_const.dart';
 import 'package:flutter_mongodb_app/screens/pages/page1.dart';
 import 'package:flutter_mongodb_app/screens/pages/page2.dart';
+import 'package:flutter_mongodb_app/screens/presentation/restaurant_screen.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../resources/string_const.dart';
@@ -16,7 +21,7 @@ import '../../resources/string_const.dart';
 class HomeScreen extends StatefulWidget {
   final String email;
   final String username;
-   HomeScreen({super.key, required this.email, required this.username});
+  HomeScreen({super.key, required this.email, required this.username});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -58,6 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Future.delayed(const Duration(seconds: 2));
   }
 
+  final ref = FirebaseDatabase.instance
+      .ref()
+      .child('RestoDetails')
+      .child('ListRegister');
   bool check = false;
   @override
   Widget build(BuildContext context) {
@@ -105,234 +114,279 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: ColorManager.theame100,
       ),
-      drawer:  Navigationdrawer(email: widget.email, username: widget.username,),
+      drawer: Navigationdrawer(
+        email: widget.email,
+        username: widget.username,
+      ),
       body: RefreshIndicator(
         edgeOffset: 0,
         onRefresh: _refresh,
-        child: SingleChildScrollView(
-          controller: controller,
-          child: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width / 1,
-              child: Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 4,
-                      width: MediaQuery.of(context).size.width,
-                      child: PageView(
-                        controller: _controller,
-                        children: const [Page1(), Page2()],
-                      ),
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width / 1,
+            child: Padding(
+              padding: const EdgeInsets.only(top: AppPadding.p8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 4,
+                    width: MediaQuery.of(context).size.width,
+                    child: PageView(
+                      controller: _controller,
+                      children: const [Page1(), Page2()],
                     ),
-                    Center(
-                      child: SmoothPageIndicator(
-                        controller: _controller,
-                        count: 2,
-                        effect: ExpandingDotsEffect(
-                            dotColor: ColorManager.faintgray,
-                            activeDotColor: ColorManager.theame100,
-                            dotHeight: AppSize.s5,
-                            dotWidth: AppSize.s5),
-                      ),
+                  ),
+                  Center(
+                    child: SmoothPageIndicator(
+                      controller: _controller,
+                      count: 2,
+                      effect: ExpandingDotsEffect(
+                          dotColor: ColorManager.faintgray,
+                          activeDotColor: ColorManager.theame100,
+                          dotHeight: AppSize.s5,
+                          dotWidth: AppSize.s5),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 25,
-                        width: MediaQuery.of(context).size.width / 5,
-                        decoration: BoxDecoration(
-                            color: ColorManager.light,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                color: ColorManager.theame200,
-                                width: AppSize.s2)),
-                        child: Center(
-                          child: Text(
-                            AppString.items,
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 25,
+                      width: MediaQuery.of(context).size.width / 5,
+                      decoration: BoxDecoration(
+                          color: ColorManager.light,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              color: ColorManager.theame200,
+                              width: AppSize.s2)),
+                      child: Center(
+                        child: Text(
+                          AppString.items,
+                          style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ),
                     ),
-                    Expanded(
-                        child: ListView.builder(
-                            //controller: controller,
-                            //physics: NeverScrollableScrollPhysics(),
-                            itemCount: 7,
-                            itemBuilder: (context, index) {
-                              return Slidable(
-                                endActionPane: ActionPane(
-                                  dragDismissible: true,
-                                  extentRatio: 0.5,
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) => {},
-                                      icon: check == null
-                                          ? Icons.favorite_border_outlined
-                                          : Icons.favorite,
-                                      borderRadius: BorderRadius.circular(60),
-                                    ),
-                                    SlidableAction(
-                                      onPressed: (context) => {},
-                                      icon: Icons.menu,
-                                      borderRadius: BorderRadius.circular(60),
-                                    ),
-                                    SlidableAction(
-                                      onPressed: (context) => {},
-                                      icon: Icons.remove_red_eye_outlined,
-                                      borderRadius: BorderRadius.circular(60),
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.restoscreen);
-                                    },
-                                    child: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              6,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Material(
-                                        elevation: 4,
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: ClipRRect(
-                                          //borderRadius: BorderRadius.circular(10),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: Row(
-                                              children: [
-                                                ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: const Image(
-                                                      image: AssetImage(
-                                                          ImageAssets.dish1),
-                                                      fit: BoxFit.fill,
-                                                    )),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: SingleChildScrollView(
-                                                    child: ScrollConfiguration(
-                                                      behavior:
-                                                          ScrollConfiguration
-                                                                  .of(context)
-                                                              .copyWith(
-                                                                  scrollbars:
-                                                                      false),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            AppString.restoname,
-                                                            style: UpdateUser.customTextStyle(
-                                                                MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    15,
-                                                                FontWeightManager
-                                                                    .semiBold,
-                                                                ColorManager
-                                                                    .black),
-                                                          ),
-                                                          Text(
-                                                            'Starters, Main Menu, Desserts.',
-                                                            style: UpdateUser.customTextStyle(
-                                                                MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    30,
-                                                                FontWeightManager
-                                                                    .regular,
-                                                                ColorManager
-                                                                    .gray),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: AppSize.s10,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    ColorManager
-                                                                        .yellow,
-                                                                size:
-                                                                    AppSize.s20,
-                                                              ),
-                                                              const SizedBox(
-                                                                width:
-                                                                    AppSize.s5,
-                                                              ),
-                                                              Text(
-                                                                '4.2',
-                                                                style: UpdateUser.customTextStyle(
-                                                                    MediaQuery.of(
-                                                                                context)
-                                                                            .size
-                                                                            .width /
-                                                                        30,
-                                                                    FontWeightManager
-                                                                        .regular,
-                                                                    ColorManager
-                                                                        .gray),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                            height: AppSize.s5,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons.circle,
-                                                                color:
-                                                                    ColorManager
+                  ),
+                  Expanded(
+                      child: FirebaseAnimatedList(
+                          query: ref,
+                          // controller: controller,
+                          // physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, snapshot, animation, index) {
+                            Map restodetails = snapshot.value as Map;
+                            restodetails['key'] = snapshot.key;
+                            final item = snapshot
+                                .child(
+                                'restaurant_name')
+                                .value
+                                .toString();
+                            return Slidable(
+                              endActionPane: ActionPane(
+                                dragDismissible: true,
+                                extentRatio: 0.5,
+                                motion: const ScrollMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) => {},
+                                    icon: check == null
+                                        ? Icons.favorite_border_outlined
+                                        : Icons.favorite,
+                                    borderRadius: BorderRadius.circular(60),
+                                  ),
+                                  SlidableAction(
+                                    onPressed: (context) => {},
+                                    icon: Icons.menu,
+                                    borderRadius: BorderRadius.circular(60),
+                                  ),
+                                  SlidableAction(
+                                    onPressed: (context) => {},
+                                    icon: Icons.remove_red_eye_outlined,
+                                    borderRadius: BorderRadius.circular(60),
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: GestureDetector(
+                                  //heroTag:'name',
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => RestoScreen(
+                                                  restoname: snapshot
+                                                      .child('restaurant_name')
+                                                      .value
+                                                      .toString(),
+                                                  type: snapshot
+                                                      .child('type')
+                                                      .value
+                                                      .toString(),
+                                                  image: restodetails[
+                                                          'restaurantimage']
+                                                      .toString(),
+                                                )));
+                                  },
+                                  child: SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 6,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Material(
+                                      elevation: 4,
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: ClipRRect(
+                                        //borderRadius: BorderRadius.circular(10),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Row(
+                                            children: [
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image.network(
+                                                    restodetails[
+                                                            'restaurantimage']
+                                                        .toString(),
+                                                    width: 100,
+                                                    fit: BoxFit.fill,
+                                                  )),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: SingleChildScrollView(
+                                                  child: ScrollConfiguration(
+                                                    behavior:
+                                                        ScrollConfiguration.of(
+                                                                context)
+                                                            .copyWith(
+                                                                scrollbars:
+                                                                    false),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          snapshot
+                                                              .child(
+                                                                  'restaurant_name')
+                                                              .value
+                                                              .toString(),
+                                                          style: UpdateUser
+                                                              .customTextStyle(
+                                                                  MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      15,
+                                                                  FontWeightManager
+                                                                      .semiBold,
+                                                                  ColorManager
+                                                                      .black),
+                                                        ),
+                                                        Text(
+                                                          snapshot
+                                                              .child(
+                                                                  'restaurant_address')
+                                                              .value
+                                                              .toString(),
+                                                          style: UpdateUser
+                                                              .customTextStyle(
+                                                                  MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      30,
+                                                                  FontWeightManager
+                                                                      .regular,
+                                                                  ColorManager
+                                                                      .gray),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: AppSize.s10,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color:
+                                                                  ColorManager
+                                                                      .yellow,
+                                                              size: AppSize.s20,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: AppSize.s5,
+                                                            ),
+                                                            Text(
+                                                              '4.2',
+                                                              style: UpdateUser.customTextStyle(
+                                                                  MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      30,
+                                                                  FontWeightManager
+                                                                      .regular,
+                                                                  ColorManager
+                                                                      .gray),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: AppSize.s5,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            snapshot
+                                                                        .child(
+                                                                            'type')
+                                                                        .value ==
+                                                                    'Pure Veg'
+                                                                        .toString()
+                                                                ? Icon(
+                                                                    Icons
+                                                                        .circle,
+                                                                    color: ColorManager
                                                                         .green,
-                                                                size:
-                                                                    AppSize.s15,
-                                                              ),
-                                                              const SizedBox(
-                                                                width:
-                                                                    AppSize.s5,
-                                                              ),
-                                                              const Text(
-                                                                  'Pure Veg')
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
+                                                                    size: AppSize
+                                                                        .s15,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons
+                                                                        .circle,
+                                                                    color:
+                                                                        ColorManager
+                                                                            .red,
+                                                                    size: AppSize
+                                                                        .s15,
+                                                                  ),
+                                                            const SizedBox(
+                                                              width: AppSize.s5,
+                                                            ),
+                                                            Text(snapshot
+                                                                .child('type')
+                                                                .value
+                                                                .toString())
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              );
-                            }))
-                  ],
-                ),
+                              ),
+                            );
+                          })),
+                ],
               ),
             ),
           ),

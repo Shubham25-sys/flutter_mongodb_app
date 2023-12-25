@@ -16,6 +16,7 @@ class ColorManager {
   static Color lightgray = const Color(0xFFE8E8E8);
   static Color faintgray = const Color(0xFFD9D9D9);
   static Color graybg = const Color(0xFFEEE5E5);
+  static Color cardcolor = const Color(0xFFF9F6F6);
   static Color yellow = const Color(0xFFFFD700);
   static Color orangelight = const Color(0xFFF3B457);
   static Color green = const Color(0xFF28CC00);
