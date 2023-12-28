@@ -8,7 +8,12 @@ import '../../resources/values_const.dart';
 class OnBordingScreen extends StatefulWidget {
   final String? email;
   final String? username;
-  OnBordingScreen({super.key, this.email, this.username});
+  final String? paymentmode;
+  final String? couponcode;
+  final String? restoname;
+  final List? foodname;
+  final List? foodcost;
+  OnBordingScreen({super.key, this.email, this.username, this.paymentmode, this.couponcode, this.foodname, this.foodcost, this.restoname});
 
   @override
   State<OnBordingScreen> createState() => _OnBordingScreenState();
@@ -24,7 +29,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
         email: widget.email.toString(),
         username: widget.username.toString(),
       ),
-      const OrderScreen(),
+      OrderScreen(foodname: widget.foodname?.toList(),foodcost:widget.foodcost?.toList() ,paymentmode:widget.paymentmode.toString(),restoname: widget.restoname.toString(),),
       ProfileScreen(
         email: widget.email.toString(),
         username: widget.username.toString(),

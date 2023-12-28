@@ -40,7 +40,7 @@ class RouteGenerator {
       // case Routes.restoscreen:
       //   return MaterialPageRoute(builder: (_) =>  RestoScreen());
       case Routes.paymentscreen:
-        return MaterialPageRoute(builder: (_) => const PaymentScreen());
+        return MaterialPageRoute(builder: (_) =>  PaymentScreen());
       // case Routes.profilescreen:
       //   return MaterialPageRoute(builder: (_) => const ProfileScreen());
       // case Routes.orderscreen:

@@ -227,6 +227,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   image: restodetails[
                                                           'restaurantimage']
                                                       .toString(),
+                                              location:snapshot
+                                                  .child(
+                                                  'restaurant_address')
+                                                  .value
+                                                  .toString(),
                                                 )));
                                   },
                                   child: SizedBox(
