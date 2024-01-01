@@ -11,4 +11,5 @@ class ImageAssets {
   static const String starters = "$IMAGE_PATH/starters.jpg";
   static const String discount1 = "$IMAGE_PATH/food_discount2.jpeg";
   static const String discount2 = "$IMAGE_PATH/food_discount.jpeg";
+  static const String nodata = "$IMAGE_PATH/noData.jpg";
 }

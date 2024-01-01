@@ -216,6 +216,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => RestoScreen(
+                                                  email: widget.email.toString(),
+                                                  username: widget.username.toString(),
                                                   restoname: snapshot
                                                       .child('restaurant_name')
                                                       .value

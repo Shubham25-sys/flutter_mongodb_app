@@ -265,9 +265,6 @@ class _RegisteredScreenState extends State<RegisteredScreen> {
                           child: OutlinedButton(
                               onPressed: () async {
                                 setState(() => _isLoading = true);
-                                await Future.delayed(
-                                    const Duration(seconds: 3));
-                                setState(() => _isLoading = false);
                                 if (_formkey.currentState!.validate()) {
                                   try {
                                     await RealTime.InsertData(
@@ -279,7 +276,7 @@ class _RegisteredScreenState extends State<RegisteredScreen> {
                                     await NotificationServices.showNotification(
                                         title: 'Foodies',
                                         body: 'Registration successful.',
-                                    summary: 'Your Foodies account has been created..');
+                                    summary: '${emailcontroller}Your Foodies account has been created..');
                                     // ignore: use_build_context_synchronously
                                     Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBordingScreen(username: usernamecontroller.text,email: emailcontroller.text,)));
                                   } catch (e) {
@@ -298,6 +295,7 @@ class _RegisteredScreenState extends State<RegisteredScreen> {
                                         });
                                   }
                                 }
+                                setState(() => _isLoading = false);
                               },
                               style: OutlinedButton.styleFrom(
                                   shape: const StadiumBorder()),

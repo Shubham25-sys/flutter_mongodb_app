@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mongodb_app/resources/assets_manager.dart';
 
 import '../../resources/colors_const.dart';
 import '../../resources/controller/scroll_to_hide_widget.dart';
@@ -33,7 +34,8 @@ class _OrderScreenState extends State<OrderScreen> {
   //   controller = ScrollController();
   //   super.dispose();
   // }
-
+  List? get foodnames => widget.foodname;
+  List? get foodcosts => widget.foodcost;
   int Index = 0;
   @override
   Widget build(BuildContext context) {
@@ -57,9 +59,10 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       body: Column(
         children: [
+          widget.restoname.toString() == 'null' ? Expanded(child: Center(child: Image(image: AssetImage(ImageAssets.nodata),width: 50,),)) :
           Expanded(
               child: ListView.builder(
-                 itemCount: widget.foodname?.length,
+                 itemCount: 1,
                   itemBuilder: (BuildContext context, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Material(
@@ -97,8 +100,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                  return Row(
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    children: [
-                                     Text(widget.foodname.toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.medium, ColorManager.black),),
-                                     Text(widget.foodcost.toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.bold, ColorManager.black),)
+                                     Text(foodnames![index].toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.medium, ColorManager.black),),
+                                     Text(foodcosts![index].toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.bold, ColorManager.black),)
                                    ],
                                  );
                                }),

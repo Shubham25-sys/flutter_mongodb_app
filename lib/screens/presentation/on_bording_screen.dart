@@ -22,6 +22,7 @@ class OnBordingScreen extends StatefulWidget {
 class _OnBordingScreenState extends State<OnBordingScreen> {
   int index = 0;
 
+
   @override
   Widget build(BuildContext context) {
     final screen = [

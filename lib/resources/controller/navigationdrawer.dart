@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mongodb_app/resources/colors_const.dart';
 import 'package:flutter_mongodb_app/screens/presentation/on_bording_screen.dart';
 import 'package:flutter_mongodb_app/screens/presentation/profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../route_manager.dart';
 import '../string_const.dart';
@@ -83,6 +84,9 @@ class Navigationdrawer extends StatelessWidget {
             title: Text(AppString.logout,style: Theme.of(context).textTheme.subtitle1,),
             onTap: () async{
               await FirebaseAuth.instance.signOut();
+              final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+              sharedPreferences.remove('email');
+              sharedPreferences.remove('username');
               Navigator.popAndPushNamed(context, Routes.loginscreen);
             },
           )

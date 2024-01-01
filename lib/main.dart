@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mongodb_app/providers/provider_class.dart';
 import 'package:flutter_mongodb_app/resources/route_manager.dart';
 import 'package:flutter_mongodb_app/resources/theme_manager.dart';
+import 'package:flutter_mongodb_app/screens/presentation/on_bording_screen.dart';
+import 'package:flutter_mongodb_app/screens/presentation/splash_screen.dart';
 import 'package:flutter_mongodb_app/services/notification_services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationServices.initializeNotification();
   Platform.isAndroid
@@ -20,6 +23,9 @@ void main() async {
               projectId: "flutter-mongo-db",
               storageBucket: "flutter-mongo-db.appspot.com"))
       : await Firebase.initializeApp();
+  // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  // var email = sharedPreferences.getString('email');
+  // var username = sharedPreferences.getString('username');
 
   // WidgetsFlutterBinding.ensureInitialized();
   // await MongoDataBase.connect();
@@ -27,7 +33,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // var email;
+  // var username;
+   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashscreen,
+        // (email == null) && (username == null) ? SplashScreen() : OnBordingScreen(email: email.toString(),username: username.toString(),),
         theme: getApplicationTheme(),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:flutter_mongodb_app/screens/presentation/on_bording_screen.dart'
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/route_manager.dart';
 import '../../resources/theme_manager.dart';
@@ -42,16 +43,20 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> fetchAndNavigate() async{
     String userEmail = _emailcontroller.text.trim();
     String? username = await RealTime.fetchUsernameByEmail(userEmail);
+
     setState(() {
       fetchedUsername = username;
+      _isLoading = true;
     });
       if (username != null) {
+        //Provider.of<MyProviders>(context).passusername(fetchedUsername.toString());
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => OnBordingScreen(email:_emailcontroller.text,username: fetchedUsername,),
           ),
         );
+        setState(()=>_isLoading = false);
       }else{
         print('error');
       }
@@ -264,8 +269,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     onPressed: () async{
                                       // if(_isLoading) return;
                                       setState(()=>_isLoading = true);
-                                      await Future.delayed(const Duration(seconds: 3));
-                                      setState(()=>_isLoading = false);
+                                      //await Future.delayed(const Duration(seconds: 3));
+
                                       if(_formkey.currentState!.validate()){
 
                                           if((_emailcontroller.text == 'admin@gmail.com') &&(_passwordcontroller.text == 'Foodiesadmin@123') ){
@@ -274,6 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Navigator.pushNamed(context, Routes.adminpanelscreen);
                                             }catch (e){
                                               // ignore: use_build_context_synchronously
+                                              setState(()=>_isLoading = false);
                                               showDialog(
                                                   context: context,
                                                   builder: (context) {
@@ -291,6 +297,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                             try{
                                                await RealTime.LoginData(_emailcontroller.text,_passwordcontroller.text);
                                                fetchAndNavigate();
+                                               final SharedPreferences sharedPreferences =
+                                               await SharedPreferences.getInstance();
+                                               await sharedPreferences.setString(
+                                                   'email', _emailcontroller.text);
+                                               await sharedPreferences.setString(
+                                                   'username', fetchedUsername.toString());
                                               //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBordingScreen(email: _emailcontroller.text,)));
                                             }catch (e){
                                               // ignore: use_build_context_synchronously
@@ -306,15 +318,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       ),
                                                     );
                                                   });
+                                              setState(()=>_isLoading = false);
 
                                             }
 
                                           }else{
                                             print('error');
                                           }
-                                        _passwordcontroller.clear();
-
                                       }
+                                      _passwordcontroller.clear();
                                     },
                                     style: OutlinedButton.styleFrom(
                                         shape: const StadiumBorder()),
@@ -337,15 +349,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               child: Text(
                                 AppString.createac,
-                                style: Theme.of(context).textTheme.bodyText2,
+                                style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/25, FontWeightManager.bold, ColorManager.black),
                               ),
                             ),
                           ),
                           const SizedBox(
                             height: AppSize.s30,
                           ),
-                          const Center(
-                            child: Text(AppString.or),
+                           Center(
+                            child: Text(AppString.or,style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/25, FontWeightManager.regular, ColorManager.black),),
                           ),
                           const SizedBox(
                             height: AppSize.s20,

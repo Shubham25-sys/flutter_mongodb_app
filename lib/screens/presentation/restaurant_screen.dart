@@ -20,11 +20,13 @@ class RestoScreen extends StatefulWidget {
   final String type;
   final String image;
   final String location;
+  final String? email;
+  final String? username;
   RestoScreen(
       {super.key,
       required this.restoname,
       required this.type,
-      required this.image, required this.location});
+      required this.image, required this.location, this.email, this.username});
 
   @override
   State<RestoScreen> createState() => _RestoScreenState();
@@ -640,7 +642,7 @@ class _RestoScreenState extends State<RestoScreen> {
                       templist2.clear();
                       templist3.clear();
                     });
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=> PaymentScreen(temp: mainlist,restoname: widget.restoname,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> PaymentScreen(email: widget.email.toString(),username:widget.username.toString(),temp: mainlist,restoname: widget.restoname,)));
                   }, style:ElevatedButton.styleFrom(shape: StadiumBorder()),child: Text('NEXT'),),)),]
           )
 

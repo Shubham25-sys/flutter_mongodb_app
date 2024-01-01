@@ -8,6 +8,8 @@ import 'package:flutter_mongodb_app/screens/presentation/list.dart';
 
 class MyProviders extends ChangeNotifier {
  //final getlist = Resources.starters.toList();
+  String _username = '';
+  String get _getusername => _username;
   List<String> _foodname = [];
   List<String> _foodcost = [];
   List<String>get getfoodname => _foodname;
@@ -18,6 +20,10 @@ class MyProviders extends ChangeNotifier {
   //   return getfoodcost.fold(0, (sum, item) => getfoodcost.isSelected ? sum + item.value : sum);
   // }
 
+  void passusername(String newvalue){
+    _username = newvalue;
+    notifyListeners();
+  }
   void selectedItems(String name,String cost){
    final isExist = _foodname.contains(name);
    final isExistcost = _foodcost.contains(cost);

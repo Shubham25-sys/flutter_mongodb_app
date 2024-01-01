@@ -14,7 +14,9 @@ import 'popups/couponcode_popup.dart';
 class PaymentScreen extends StatefulWidget {
    List? temp;
    final String? restoname;
-   PaymentScreen({super.key,  this.temp, this.restoname});
+   final String? email;
+   final String? username;
+   PaymentScreen({super.key,  this.temp, this.restoname, this.email, this.username});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -121,9 +123,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   FontSize.s14,
                                   FontWeightManager.regular,
                                   ColorManager.graynish)),
-                          Icon(
-                            Icons.add_box_outlined,
-                            color: ColorManager.whitesheed,
+                          IconButton(
+                            color: ColorManager.whitesheed, onPressed: () { Navigator.pop(context); }, icon: Icon(Icons.add_box_outlined,),
                           )
                         ],
                       ),
@@ -326,9 +327,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 child: ElevatedButton(
                                     onPressed: () async{
                                       await QuickAlert.show(context: context, type: QuickAlertType.success,autoCloseDuration: Duration(seconds: 5));
-                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBordingScreen(foodname: foodname.toList(),foodcost: foodcost.toList(),paymentmode: ValueChoose.toString(),restoname: widget.restoname.toString(),)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBordingScreen(email:widget.email.toString(),username:widget.username.toString(),foodname: foodname.toList(),foodcost: foodcost.toList(),paymentmode: ValueChoose.toString(),restoname: widget.restoname.toString(),)));
                                       await NotificationServices.showNotification(title: 'Order Placed', body:'Enjoy your food');
-                                       ShowAleart();
+                                      provider.clearAll();
+                                      ShowAleart();
                                     },
                                     style: ElevatedButton.styleFrom(
                                         shape: const StadiumBorder(),

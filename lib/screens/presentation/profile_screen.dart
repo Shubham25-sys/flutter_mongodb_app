@@ -5,6 +5,7 @@ import 'package:flutter_mongodb_app/resources/colors_const.dart';
 import 'package:flutter_mongodb_app/resources/string_const.dart';
 import 'package:flutter_mongodb_app/resources/theme_manager.dart';
 import 'package:flutter_mongodb_app/resources/values_const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/controller/scroll_to_hide_widget.dart';
 import '../../resources/route_manager.dart';
@@ -27,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: AppBar(
-        //leading: IconButton(onPressed: (){}, icon: Icon(Icons.menu_outlined,color: ColorManager.white,size: AppSize.s30)),
+        leading: Text(' '),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(20),
@@ -154,6 +155,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onTap: () {
               setState(() async{
                 await FirebaseAuth.instance.signOut();
+                final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                 sharedPreferences.remove('email');
+                 sharedPreferences.remove('username');
                 Navigator.popAndPushNamed(context, Routes.loginscreen);
                 print('taped');
               });
