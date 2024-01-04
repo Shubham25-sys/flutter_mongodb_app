@@ -7,6 +7,7 @@ import 'package:flutter_mongodb_app/screens/presentation/on_bording_screen.dart'
 import 'package:flutter_mongodb_app/services/notification_services.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../providers/provider_class.dart';
 import 'popups/couponcode_popup.dart';
@@ -40,6 +41,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final provider = Provider.of<MyProviders>(context);
     final foodname = provider.getfoodname;
     final foodcost = provider.getfoodcost;
+    List<int> intList = foodcost.map((string) => int.parse(string)).toList();
+    int sum = 0;
+    for (int i = 0; i < intList.length; i++) {
+      sum += intList[i];
+    }
+
     return Scaffold(
         backgroundColor: ColorManager.whitesheed2,
         appBar: AppBar(
@@ -88,12 +95,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(foodname[index],
+                                    Text(foodname[index].toString(),
                                         style: UpdateUser.customTextStyle(
                                             FontSize.s14,
                                             FontWeightManager.regular,
                                             ColorManager.graynish)),
-                                    Text('\u{20B9}${foodcost[index]}',
+                                    Text('\u{20B9}${foodcost[index].toString()}',
                                         style: UpdateUser.customTextStyle(
                                             FontSize.s14,
                                             FontWeightManager.regular,
@@ -238,7 +245,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       FontSize.s14,
                                       FontWeightManager.regular,
                                       ColorManager.graynish)),
-                              Text('\u{20B9}57',
+                              Text('\u{20B9} $sum',
                                   style: UpdateUser.customTextStyle(
                                       FontSize.s14,
                                       FontWeightManager.regular,
@@ -310,10 +317,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   ),
                                   Text(
-                                    '\u{20B9}57',
+                                    '\u{20B9} $sum',
                                     style: UpdateUser.customTextStyle(
                                         FontSize.s14,
-                                        FontWeightManager.regular,
+                                        FontWeightManager.bold,
                                         ColorManager.graynish),
                                   )
                                 ],
@@ -326,8 +333,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     borderRadius: BorderRadius.circular(30)),
                                 child: ElevatedButton(
                                     onPressed: () async{
+                                      // setState(() {
+                                      //   foodname.clear();
+                                      // });
                                       await QuickAlert.show(context: context, type: QuickAlertType.success,autoCloseDuration: Duration(seconds: 5));
-                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBordingScreen(email:widget.email.toString(),username:widget.username.toString(),foodname: foodname.toList(),foodcost: foodcost.toList(),paymentmode: ValueChoose.toString(),restoname: widget.restoname.toString(),)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBordingScreen(email:widget.email.toString(),username:widget.username.toString(),foodname: foodname.toList(),foodcost: foodcost.toList(),sum:sum.toString(),paymentmode: ValueChoose.toString(),restoname: widget.restoname.toString(),)));
                                       await NotificationServices.showNotification(title: 'Order Placed', body:'Enjoy your food');
                                       provider.clearAll();
                                       ShowAleart();

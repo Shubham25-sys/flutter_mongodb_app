@@ -42,6 +42,9 @@ class _RestoScreenState extends State<RestoScreen> {
   List<String> templist2 =[];
   List<String> templist3 =[];
   List<String> mainlist =[];
+  Future<void> getList()async {
+
+  }
 
   int current = 0;
   @override
@@ -94,157 +97,6 @@ class _RestoScreenState extends State<RestoScreen> {
           )
         ],
       ),
-          // headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          //   return [
-          //     SliverAppBar(
-          //       actions: [
-          //         Padding(
-          //           padding: const EdgeInsets.all(AppPadding.p10),
-          //           child: Material(
-          //             elevation: 2,
-          //             borderRadius: BorderRadius.circular(30),
-          //             child: SizedBox(
-          //               height: AppSize.s20,
-          //               width: MediaQuery.of(context).size.width / 1.2,
-          //               child: TextField(
-          //                 style: TextStyle(color: ColorManager.black),
-          //                 cursorColor: ColorManager.black,
-          //                 textInputAction: TextInputAction.newline,
-          //                 keyboardType: TextInputType.text,
-          //                 textAlign: TextAlign.start,
-          //                 textAlignVertical: TextAlignVertical.center,
-          //                 decoration: InputDecoration(
-          //                     prefixIcon: Icon(
-          //                       Icons.search_outlined,
-          //                       color: ColorManager.theame200,
-          //                       size: AppSize.s30,
-          //                     ),
-          //                     border: InputBorder.none,
-          //                     contentPadding:
-          //                         const EdgeInsets.only(bottom: 10, right: 5),
-          //                     hintText: AppString.search,
-          //                     hintStyle: TextStyle(color: ColorManager.gray)),
-          //                 //readOnly: true,
-          //                 onTap: () {},
-          //               ),
-          //             ),
-          //           ),
-          //         )
-          //       ],
-          //       elevation: AppSize.s0,
-          //       surfaceTintColor: ColorManager.theame200,
-          //       foregroundColor: ColorManager.theame100,
-          //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          //       leading: IconButton(
-          //           onPressed: () {
-          //             Navigator.pop(context);
-          //           },
-          //           icon: const Icon(
-          //             Icons.arrow_back_ios_new_rounded,
-          //             color: Colors.black,
-          //           )),
-          //       expandedHeight: AppSize.s350,
-          //       pinned: true,
-          //       flexibleSpace: Padding(
-          //         padding: const EdgeInsets.only(
-          //             top: AppPadding.p50,
-          //             left: AppPadding.p5,
-          //             right: AppPadding.p5),
-          //         child: ClipRRect(
-          //           borderRadius: BorderRadius.circular(20),
-          //           child: FlexibleSpaceBar(
-          //             titlePadding: const EdgeInsets.all(10),
-          //             centerTitle: false,
-          //             expandedTitleScale: 1.2,
-          //             title: Text(
-          //               widget.restoname,
-          //               textAlign: TextAlign.start,
-          //               style: UpdateUser.customTextStyle(FontSize.s20,
-          //                   FontWeightManager.bold, ColorManager.white),
-          //             ),
-          //             background: Padding(
-          //                 padding: EdgeInsets.only(top: AppPadding.p40),
-          //                 child: Image.network(
-          //                   widget.image.toString(),
-          //                   fit: BoxFit.fill,
-          //                 )),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //
-          //     /// Sliver App bar 2
-          //     SliverAppBar(
-          //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          //       pinned: true,
-          //       leading: Text(''),
-          //       //elevation: AppSize.s0,
-          //       expandedHeight: 0,
-          //       flexibleSpace: Padding(
-          //         padding: const EdgeInsets.all(5),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           crossAxisAlignment: CrossAxisAlignment.center,
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 widget.type == 'Pure Veg'
-          //                     ? Icon(
-          //                         Icons.circle_sharp,
-          //                         color: ColorManager.green,
-          //                         size: AppSize.s20,
-          //                       )
-          //                     : Icon(
-          //                         Icons.circle_sharp,
-          //                         color: ColorManager.red,
-          //                         size: AppSize.s20,
-          //                       ),
-          //                 const SizedBox(
-          //                   width: AppSize.s5,
-          //                 ),
-          //                 Text(
-          //                   widget.type,
-          //                   style: UpdateUser.customTextStyle(
-          //                       FontSize.s10,
-          //                       FontWeightManager.medium,
-          //                       ColorManager.graynish),
-          //                 ),
-          //               ],
-          //             ),
-          //             Row(
-          //               children: [
-          //                 Text(
-          //                   AppString.ratting,
-          //                   style: UpdateUser.customTextStyle(
-          //                       FontSize.s10,
-          //                       FontWeightManager.medium,
-          //                       ColorManager.graynish),
-          //                 ),
-          //                 const SizedBox(
-          //                   width: AppSize.s5,
-          //                 ),
-          //                 Container(
-          //                     height: AppSize.s20,
-          //                     width: AppSize.s30,
-          //                     decoration: BoxDecoration(
-          //                         borderRadius: BorderRadius.circular(5),
-          //                         border: Border.all(
-          //                             color: ColorManager.graynish, width: 1)),
-          //                     child: Center(
-          //                         child: Text('4.1',
-          //                             style: UpdateUser.customTextStyle(
-          //                                 FontSize.s10,
-          //                                 FontWeightManager.bold,
-          //                                 ColorManager.black)))),
-          //               ],
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //
-          //   ];
-          // },
           body:Stack(
             children: [
               ListView(
@@ -323,6 +175,82 @@ class _RestoScreenState extends State<RestoScreen> {
                       SizedBox(height: MediaQuery.of(context).size.height/15,),
                       Container(
                         decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(20)),
+                        child: ExpansionTile(title: Text('Soups',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/15, FontWeightManager.bold, ColorManager.black),),
+                          trailing: Icon(_customeicon ?Icons.arrow_drop_up_outlined:Icons.arrow_drop_down_outlined),
+                          initiallyExpanded: true,
+                          shape: RoundedRectangleBorder(side: BorderSide.none),
+                          onExpansionChanged: (bool expanded){
+                            setState(()=> _customeicon = expanded);
+                          },
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height/2,
+                              width: double.infinity,
+                              child: ListView.separated(
+                                  separatorBuilder: (BuildContext context, int index) {
+                                    return Divider(color: ColorManager.faintgray,);},
+                                  // physics: NeverScrollableScrollPhysics(),
+                                  itemCount: Resources.soupsveg.length,
+                                  itemBuilder: (context, index){
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(Resources.soupsveg[index]['foodname'].toString(),style: UpdateUser.customTextStyle(
+                                                  MediaQuery.of(context).size.width / 20,
+                                                  FontWeightManager.bold,
+                                                  ColorManager.black),),
+                                              SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                                              Text('\u{20B9}${Resources.soupsveg[index]['cost']}',style: UpdateUser.customTextStyle(
+                                                  MediaQuery.of(context).size.width / 25,
+                                                  FontWeightManager.bold,
+                                                  ColorManager.black),),
+                                              SizedBox(height: MediaQuery.of(context).size.height / 15,),
+                                              Text('Loream xyc asdas sadwenubf,a sdasdas',style: UpdateUser.customTextStyle(
+                                                  MediaQuery.of(context).size.width / 30,
+                                                  FontWeightManager.regular,
+                                                  ColorManager.gray),),
+
+                                            ],
+                                          ),
+                                          Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: MediaQuery.of(context).size.height / 8,
+                                                  width: MediaQuery.of(context).size.width / 4,
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    child: Image(image: AssetImage(Resources.soupsveg[index]['imageurl']),fit: BoxFit.cover,),
+                                                  ),
+                                                ),
+                                                ElevatedButton(onPressed:(){
+                                                  setState(() {
+                                                    if(templist.contains(Resources.soupsveg[index]['foodname'].toString())){
+                                                      templist.remove(Resources.soupsveg[index]['foodname'].toString());
+                                                    }else{
+                                                      templist.add(Resources.soupsveg[index]['foodname'].toString());
+                                                    }
+                                                  });
+                                                  print(templist.toString());
+                                                  provider.selectedItems(Resources.soupsveg[index]['foodname'].toString(), Resources.soupsveg[index]['cost'].toString());
+                                                },
+                                                    style: ElevatedButton.styleFrom(
+                                                        shape: const StadiumBorder(),
+                                                        backgroundColor: templist.contains(Resources.soupsveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
+                                                    child: Text(templist.contains(Resources.soupsveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist.contains(Resources.soupsveg[index]['foodname'].toString())?ColorManager.white:ColorManager.yellow),))])],
+                                      ),
+                                    );
+                                  }),),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 15,),
+                      Container(
+                        decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(20)),
                         child: ExpansionTile(title: Text('Starters',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/15, FontWeightManager.bold, ColorManager.black),),
                           trailing: Icon(_customeicon ?Icons.arrow_drop_up_outlined:Icons.arrow_drop_down_outlined),
                           initiallyExpanded: true,
@@ -353,7 +281,7 @@ class _RestoScreenState extends State<RestoScreen> {
                                                   FontWeightManager.bold,
                                                   ColorManager.black),),
                                               SizedBox(height: MediaQuery.of(context).size.height / 50,),
-                                              Text('\u{20B9}${Resources.startersveg[index]['cost']}',style: UpdateUser.customTextStyle(
+                                              Text('\u{20B9}${Resources.startersveg[index]['cost'].toString()}',style: UpdateUser.customTextStyle(
                                                   MediaQuery.of(context).size.width / 25,
                                                   FontWeightManager.bold,
                                                   ColorManager.black),),
@@ -375,21 +303,20 @@ class _RestoScreenState extends State<RestoScreen> {
                                                     child: Image(image: AssetImage(Resources.startersveg[index]['imageurl']),fit: BoxFit.cover,),
                                                   ),
                                                 ),
-                                                ElevatedButton(onPressed:(){
+                                                ElevatedButton(onPressed: (){
                                                   setState(() {
-                                                    if(templist.contains(Resources.startersveg[index]['foodname'].toString())){
-                                                      templist.remove(Resources.startersveg[index]['foodname'].toString());
+                                                    if(templist1.contains(Resources.startersveg[index]['foodname'].toString())){
+                                                      templist1.remove(Resources.startersveg[index]['foodname'].toString());
                                                     }else{
-                                                      templist.add(Resources.startersveg[index]['foodname'].toString());
+                                                      templist1.add(Resources.startersveg[index]['foodname'].toString());
                                                     }
                                                   });
-                                                  print(templist.toString());
                                                   provider.selectedItems(Resources.startersveg[index]['foodname'].toString(), Resources.startersveg[index]['cost'].toString());
                                                 },
                                                     style: ElevatedButton.styleFrom(
                                                         shape: const StadiumBorder(),
-                                                        backgroundColor: templist.contains(Resources.startersveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
-                                                    child: Text(templist.contains(Resources.startersveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist.contains(Resources.startersveg[index]['foodname'].toString())?ColorManager.white:ColorManager.yellow),))])],
+                                                        backgroundColor: templist1.contains(Resources.startersveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
+                                                    child: Text(templist1.contains(Resources.startersveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist1.contains(Resources.startersveg[index]['foodname'].toString()) ? ColorManager.white:ColorManager.yellow),))])],
                                       ),
                                     );
                                   }),),
@@ -401,8 +328,8 @@ class _RestoScreenState extends State<RestoScreen> {
                         decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(20)),
                         child: ExpansionTile(title: Text('Main Menu',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/15, FontWeightManager.bold, ColorManager.black),),
                           trailing: Icon(_customeicon ?Icons.arrow_drop_up_outlined:Icons.arrow_drop_down_outlined),
-                          initiallyExpanded: true,
                           shape: RoundedRectangleBorder(side: BorderSide.none),
+                          initiallyExpanded: true,
                           onExpansionChanged: (bool expanded){
                             setState(()=> _customeicon = expanded);
                           },
@@ -429,7 +356,7 @@ class _RestoScreenState extends State<RestoScreen> {
                                                   FontWeightManager.bold,
                                                   ColorManager.black),),
                                               SizedBox(height: MediaQuery.of(context).size.height / 50,),
-                                              Text('\u{20B9}${Resources.mainmenuveg[index]['cost'].toString()}',style: UpdateUser.customTextStyle(
+                                              Text('\u{20B9}${Resources.mainmenuveg[index]['cost']}',style: UpdateUser.customTextStyle(
                                                   MediaQuery.of(context).size.width / 25,
                                                   FontWeightManager.bold,
                                                   ColorManager.black),),
@@ -453,18 +380,18 @@ class _RestoScreenState extends State<RestoScreen> {
                                                 ),
                                                 ElevatedButton(onPressed: (){
                                                   setState(() {
-                                                    if(templist1.contains(Resources.mainmenuveg[index]['foodname'].toString())){
-                                                      templist1.remove(Resources.mainmenuveg[index]['foodname'].toString());
+                                                    if(templist2.contains(Resources.mainmenuveg[index]['foodname'].toString())){
+                                                      templist2.remove(Resources.mainmenuveg[index]['foodname'].toString());
                                                     }else{
-                                                      templist1.add(Resources.mainmenuveg[index]['foodname'].toString());
+                                                      templist2.add(Resources.mainmenuveg[index]['foodname'].toString());
                                                     }
                                                   });
-                                                  provider.selectedItems(Resources.mainmenuveg[index]['foodname'].toString(), Resources.mainmenuveg[index]['cost'].toString());
+                                                  provider.selectedItems(Resources.mainmenuveg[index]['foodname'].toString(), Resources.desertsveg[index]['cost'].toString());
                                                 },
                                                     style: ElevatedButton.styleFrom(
                                                         shape: const StadiumBorder(),
-                                                        backgroundColor: templist.contains(Resources.startersveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
-                                                    child: Text(templist1.contains(Resources.mainmenuveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist1.contains(Resources.mainmenuveg[index]['foodname'].toString()) ? ColorManager.white:ColorManager.yellow),))])],
+                                                        backgroundColor: templist2.contains(Resources.mainmenuveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
+                                                    child: Text(templist2.contains(Resources.mainmenuveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist2.contains(Resources.mainmenuveg[index]['foodname'].toString())?ColorManager.white:ColorManager.yellow),))])],
                                       ),
                                     );
                                   }),),
@@ -528,93 +455,18 @@ class _RestoScreenState extends State<RestoScreen> {
                                                 ),
                                                 ElevatedButton(onPressed: (){
                                                   setState(() {
-                                                    if(templist2.contains(Resources.desertsveg[index]['foodname'].toString())){
-                                                      templist2.remove(Resources.desertsveg[index]['foodname'].toString());
+                                                    if(templist3.contains(Resources.desertsveg[index]['foodname'].toString())){
+                                                      templist3.remove(Resources.desertsveg[index]['foodname'].toString());
                                                     }else{
-                                                      templist2.add(Resources.desertsveg[index]['foodname'].toString());
+                                                      templist3.add(Resources.desertsveg[index]['foodname'].toString());
                                                     }
                                                   });
                                                   provider.selectedItems(Resources.desertsveg[index]['foodname'].toString(), Resources.desertsveg[index]['cost'].toString());
                                                 },
                                                     style: ElevatedButton.styleFrom(
                                                         shape: const StadiumBorder(),
-                                                        backgroundColor: templist.contains(Resources.startersveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
-                                                    child: Text(templist2.contains(Resources.desertsveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist2.contains(Resources.desertsveg[index]['foodname'].toString())?ColorManager.white:ColorManager.yellow),))])],
-                                      ),
-                                    );
-                                  }),),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 15,),
-                      Container(
-                        decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(20)),
-                        child: ExpansionTile(title: Text('Soups',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width/15, FontWeightManager.bold, ColorManager.black),),
-                          trailing: Icon(_customeicon ?Icons.arrow_drop_up_outlined:Icons.arrow_drop_down_outlined),
-                          shape: RoundedRectangleBorder(side: BorderSide.none),
-                          initiallyExpanded: true,
-                          onExpansionChanged: (bool expanded){
-                            setState(()=> _customeicon = expanded);
-                          },
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height/2,
-                              width: double.infinity,
-                              child: ListView.separated(
-                                  separatorBuilder: (BuildContext context, int index) {
-                                    return Divider(color: ColorManager.faintgray,);},
-                                  // physics: NeverScrollableScrollPhysics(),
-                                  itemCount: Resources.soupsveg.length,
-                                  itemBuilder: (context, index){
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(Resources.soupsveg[index]['foodname'].toString(),style: UpdateUser.customTextStyle(
-                                                  MediaQuery.of(context).size.width / 20,
-                                                  FontWeightManager.bold,
-                                                  ColorManager.black),),
-                                              SizedBox(height: MediaQuery.of(context).size.height / 50,),
-                                              Text('\u{20B9}${Resources.soupsveg[index]['cost']}',style: UpdateUser.customTextStyle(
-                                                  MediaQuery.of(context).size.width / 25,
-                                                  FontWeightManager.bold,
-                                                  ColorManager.black),),
-                                              SizedBox(height: MediaQuery.of(context).size.height / 15,),
-                                              Text('Loream xyc asdas sadwenubf,a sdasdas',style: UpdateUser.customTextStyle(
-                                                  MediaQuery.of(context).size.width / 30,
-                                                  FontWeightManager.regular,
-                                                  ColorManager.gray),),
-
-                                            ],
-                                          ),
-                                          Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: MediaQuery.of(context).size.height / 8,
-                                                  width: MediaQuery.of(context).size.width / 4,
-                                                  child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    child: Image(image: AssetImage(Resources.soupsveg[index]['imageurl']),fit: BoxFit.cover,),
-                                                  ),
-                                                ),
-                                                ElevatedButton(onPressed: (){
-                                                  setState(() {
-                                                    if(templist3.contains(Resources.soupsveg[index]['foodname'].toString())){
-                                                      templist3.remove(Resources.soupsveg[index]['foodname'].toString());
-                                                    }else{
-                                                      templist3.add(Resources.soupsveg[index]['foodname'].toString());
-                                                    }
-                                                  });
-                                                  provider.selectedItems(Resources.soupsveg[index]['foodname'].toString(), Resources.soupsveg[index]['cost'].toString());
-                                                },
-                                                    style: ElevatedButton.styleFrom(
-                                                        shape: const StadiumBorder(),
-                                                        backgroundColor: templist.contains(Resources.startersveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
-                                                    child: Text(templist3.contains(Resources.soupsveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist3.contains(Resources.soupsveg[index]['foodname'].toString())?ColorManager.white:ColorManager.yellow),))])],
+                                                        backgroundColor: templist3.contains(Resources.desertsveg[index]['foodname'].toString()) ? ColorManager.faintgray : ColorManager.white),
+                                                    child: Text(templist3.contains(Resources.desertsveg[index]['foodname'].toString()) ? 'Remove' : 'Add',style: TextStyle(color: templist3.contains(Resources.desertsveg[index]['foodname'].toString()) ? ColorManager.white:ColorManager.yellow),))])],
                                       ),
                                     );
                                   }),),
@@ -627,23 +479,19 @@ class _RestoScreenState extends State<RestoScreen> {
                 ),
                 ]
             ),
-              Positioned(right: MediaQuery.of(context).size.width/1.6,
+               Positioned(right: MediaQuery.of(context).size.width/1.6,
                   top: MediaQuery.of(context).size.height/1.3,
                   child: SizedBox(height: MediaQuery.of(context).size.height/17,
                     width: MediaQuery.of(context).size.width/3,
-                  child: ElevatedButton(onPressed: () {
+                  child: (templist.isNotEmpty) || (templist1.isNotEmpty) || (templist2.isNotEmpty) || (templist3.isNotEmpty) ? ElevatedButton(onPressed: () {
                      setState(() {
                       mainlist.addAllT(templist,);
                       mainlist.addAllT(templist1,);
                       mainlist.addAllT(templist2,);
                       mainlist.addAllT(templist3,);
-                      templist.clear();
-                      templist1.clear();
-                      templist2.clear();
-                      templist3.clear();
                     });
                     Navigator.push(context, MaterialPageRoute(builder: (_)=> PaymentScreen(email: widget.email.toString(),username:widget.username.toString(),temp: mainlist,restoname: widget.restoname,)));
-                  }, style:ElevatedButton.styleFrom(shape: StadiumBorder()),child: Text('NEXT'),),)),]
+                  }, style:ElevatedButton.styleFrom(shape: StadiumBorder(),backgroundColor: ColorManager.theame300),child: Text('NEXT'),):null))]
           )
 
     );

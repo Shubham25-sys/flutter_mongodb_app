@@ -71,7 +71,7 @@ class Navigationdrawer extends StatelessWidget {
             leading: const Icon(Icons.perm_identity_outlined),
             title: Text(AppString.profile,style: Theme.of(context).textTheme.subtitle1,),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(email:email ,username: username,)));
+              Navigator.pop(context);
             },
           ),
           Divider(

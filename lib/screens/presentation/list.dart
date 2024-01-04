@@ -12,53 +12,59 @@ class Resources {
     {
       'foodname':'Spring rolls',
       'cost':150,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.springroll,
       'check':true,
     },
     {
-      'foodname':'Afghani Paneer',
+      'foodname':'Veg Crispy',
       'cost':180,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.vegcrispy,
       'check':true,
     },
 
   ];
-  static List<Map<String,dynamic>> startersnonveg=[
-    {
-      'foodname':'Panner Tanduri',
-      'cost':160,
-      'imageurl':ImageAssets.starters,
-      'check':true,
-    },
-    {
-      'foodname':'Spring rolls',
-      'cost':150,
-      'imageurl':ImageAssets.starters,
-      'check':true,
-    },
-    {
-      'foodname':'Afghani Paneer',
-      'cost':180,
-      'imageurl':ImageAssets.starters,
-      'check':true,
-    },
-
-  ];
+  // static List<Map<String,dynamic>> startersnonveg=[
+  //   {
+  //     'foodname':'Panner Tanduri',
+  //     'cost':160,
+  //     'imageurl':ImageAssets.starters,
+  //     'check':true,
+  //   },
+  //   {
+  //     'foodname':'Spring rolls',
+  //     'cost':150,
+  //     'imageurl':ImageAssets.starters,
+  //     'check':true,
+  //   },
+  //   {
+  //     'foodname':'Afghani Paneer',
+  //     'cost':180,
+  //     'imageurl':ImageAssets.starters,
+  //     'check':true,
+  //   },
+  //
+  // ];
   static List<Map<String,dynamic>> mainmenuveg=[
     {
       'foodname':'Panner Tikka Masala',
       'cost':210,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.paneertikka,
     },
     {
       'foodname':'Veg Kofta',
       'cost':180,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.vegkofta,
     },
     {
       'foodname':'Dal Tadka',
       'cost':170,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.daltadka,
+    },
+    {
+      'foodname':'Afghani Paneer',
+      'cost':180,
+      'imageurl':ImageAssets.afganipanner,
+      'check':true,
     },
 
   ];
@@ -66,17 +72,17 @@ class Resources {
     {
       'foodname':'Peanut Butter Blossoms',
       'cost':230,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.peanutbutter,
     },
     {
       'foodname':'Cake Mix Cookies',
       'cost':240,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.cakecookies,
     },
     {
       'foodname':'Treacle tart',
       'cost':250,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.treacletart,
     },
 
   ];
@@ -84,18 +90,18 @@ class Resources {
     {
       'foodname':'Thai Sweet Potato Soup',
       'cost':120,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.sweetpotatosoup,
 
     },
     {
       'foodname':'Manchow Momo Soup',
       'cost':100,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.manchowsoup,
     },
     {
       'foodname':'Coconut And Beetroot Soup',
       'cost':140,
-      'imageurl':ImageAssets.starters,
+      'imageurl':ImageAssets.beetrootsoup,
     },
 
   ];

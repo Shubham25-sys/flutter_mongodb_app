@@ -15,7 +15,8 @@ class OrderScreen extends StatefulWidget {
   final String? couponcode;
   final List? foodname;
   final List? foodcost;
-  const OrderScreen({super.key, this.paymentmode, this.couponcode, this.foodname, this.foodcost, this.restoname});
+  final sum;
+  const OrderScreen({super.key, this.paymentmode, this.couponcode, this.foodname, this.foodcost, this.restoname, this.sum});
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -101,7 +102,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    children: [
                                      Text(foodnames![index].toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.medium, ColorManager.black),),
-                                     Text(foodcosts![index].toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.bold, ColorManager.black),)
+                                     Text('\u{20B9} ${foodcosts![index].toString()}',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.bold, ColorManager.black),)
                                    ],
                                  );
                                }),
@@ -113,7 +114,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 children: [
                                   Text(AppString.total,style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.medium, ColorManager.black),),
                                   SizedBox(width: MediaQuery.of(context).size.width / 40,),
-                                  Text(widget.foodcost.toString(),style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.bold, ColorManager.black),)
+                                  Text('\u{20B9} ${widget.sum}',style: UpdateUser.customTextStyle(MediaQuery.of(context).size.width / 25, FontWeightManager.bold, ColorManager.black),)
                                 ],
                               ),
                               SizedBox(height: MediaQuery.of(context).size.height / 40,),

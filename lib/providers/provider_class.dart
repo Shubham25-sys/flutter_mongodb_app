@@ -12,8 +12,8 @@ class MyProviders extends ChangeNotifier {
   String get _getusername => _username;
   List<String> _foodname = [];
   List<String> _foodcost = [];
-  List<String>get getfoodname => _foodname;
-  List<String>get getfoodcost => _foodcost;
+  List<String> get getfoodname => _foodname;
+  List<String> get getfoodcost => _foodcost;
 
   //
   // int calculateSelectedSum() {

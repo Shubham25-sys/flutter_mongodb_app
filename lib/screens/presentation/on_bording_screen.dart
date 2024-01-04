@@ -13,7 +13,8 @@ class OnBordingScreen extends StatefulWidget {
   final String? restoname;
   final List? foodname;
   final List? foodcost;
-  OnBordingScreen({super.key, this.email, this.username, this.paymentmode, this.couponcode, this.foodname, this.foodcost, this.restoname});
+  final sum;
+  OnBordingScreen({super.key, this.email, this.username, this.paymentmode, this.couponcode, this.foodname, this.foodcost, this.restoname, this.sum});
 
   @override
   State<OnBordingScreen> createState() => _OnBordingScreenState();
@@ -30,7 +31,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
         email: widget.email.toString(),
         username: widget.username.toString(),
       ),
-      OrderScreen(foodname: widget.foodname?.toList(),foodcost:widget.foodcost?.toList() ,paymentmode:widget.paymentmode.toString(),restoname: widget.restoname.toString(),),
+      OrderScreen(foodname: widget.foodname?.toList(),foodcost:widget.foodcost?.toList() ,paymentmode:widget.paymentmode.toString(),restoname: widget.restoname.toString(),sum: widget.sum,),
       ProfileScreen(
         email: widget.email.toString(),
         username: widget.username.toString(),
